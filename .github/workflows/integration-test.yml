@@ -20,11 +20,20 @@ jobs:
           node-version: '20'
 
       - name: Install Frontend Dependencies
-        run: npm install
+        run: npm ci
         working-directory: ./src/client
 
       - name: Run Frontend Integration Tests (Vitest & MSW)
-        run: npm run test:integration
+        run: npm run test:integration | tee integration-test.log
         working-directory: ./src/client
         env:
           CI: true
+
+      - name: Upload Integration Test Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-test-artifact
+          path: src/client/integration-test.log
+          retention-days: 60
+          overwrite: true

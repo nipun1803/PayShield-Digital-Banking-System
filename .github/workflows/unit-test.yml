@@ -21,11 +21,20 @@ jobs:
 
     - name: Install Server Dependencies
       working-directory: ./src/server
-      run: npm install
+      run: npm ci
 
     - name: Run Server Unit Tests
       working-directory: ./src/server
-      run: npm run test
+      run: npm run test | tee server-test.log
+
+    - name: Upload Server Test Artifact
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: server-test-artifact
+        path: src/server/server-test.log
+        retention-days: 60
+        overwrite: true
 
   client-test:
     runs-on: ubuntu-latest
@@ -40,8 +49,17 @@ jobs:
 
     - name: Install Client Dependencies
       working-directory: ./src/client
-      run: npm install
+      run: npm ci
 
     - name: Run Client Unit Tests
       working-directory: ./src/client
-      run: npm run test
+      run: npm run test | tee client-test.log
+
+    - name: Upload Client Test Artifact
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: client-test-artifact
+        path: src/client/client-test.log
+        retention-days: 60
+        overwrite: true
