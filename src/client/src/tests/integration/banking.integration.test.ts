@@ -4,7 +4,7 @@ import { http, HttpResponse } from 'msw';
 import { authService, accountService, transactionService, loanService } from '../../services/bankingService';
 
 const mockStorage: Record<string, string> = {};
-Object.defineProperty(global, 'localStorage', {
+Object.defineProperty(globalThis, 'localStorage', {
   value: {
     getItem: (key: string) => mockStorage[key] || null,
     setItem: (key: string, value: string) => { mockStorage[key] = value; },
