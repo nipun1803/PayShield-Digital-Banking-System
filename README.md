@@ -22,7 +22,7 @@ A full-stack digital banking application with real-time fraud detection
 ---
 
 ### 📄 Project Reports
-- Final Project Report (PDF): [Download Report](./docs/Final_Report.pdf)
+- Final Project Report (PDF): [Report](./docs/Final_Report.pdf)
 
 ---
 
